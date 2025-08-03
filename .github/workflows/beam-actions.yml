@@ -1,0 +1,24 @@
+name: Deploy to Beam
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Authenticate and deploy to Beam
+        env:
+          BEAM_TOKEN: ${{ secrets.BEAM_TOKEN }}
+        run: |
+          pip3 install --upgrade pip
+          pip3 install beam-client
+          pip3 install fastapi
+
+          echo "beam configure default --token $BEAM_TOKEN"
+          beam configure default --token $BEAM_TOKEN
+          beam deploy app.py:handler
