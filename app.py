@@ -7,7 +7,6 @@ class ImageRequest(BaseModel):
     file: str
     session_id: str
 
-
 class PointRequest(BaseModel):
     x: int
     y: int
